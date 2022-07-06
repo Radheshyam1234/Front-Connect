@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { API_URL } from "../../Utils/Constants";
 
 export const loadPosts = createAsyncThunk("posts/loadPosts", async () => {
   try {
@@ -8,7 +9,7 @@ export const loadPosts = createAsyncThunk("posts/loadPosts", async () => {
       data: { response },
     } = await axios({
       method: "GET",
-      url: `https://front-connect-backend.herokuapp.com/posts`,
+      url: `${API_URL}/posts`,
       headers: {
         authorization:
           "Bearer " +
