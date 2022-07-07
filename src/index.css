@@ -1,0 +1,19 @@
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css";
+@import "https://fonts.gstatic.com";
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Roboto:wght@300;400&display=swap");
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(221, 40, 40);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(169, 29, 29);
+}
