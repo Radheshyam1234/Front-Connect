@@ -69,7 +69,7 @@ export const Login = () => {
       <Img
         p="4"
         display={{ base: "none", md: "block" }}
-        src=" https://res.cloudinary.com/radheshyam11/image/upload/v1641044260/idb2in5mc0ehkua500ba.jpg"
+        src=" https://res.cloudinary.com/radheshyam11/image/upload/v1657204778/android-chrome-512x512_cq1pqw.png"
       />
 
       <Box>
