@@ -25,7 +25,7 @@ export const mobileNavWrapperStyle = {
   bg: "white",
   justifyContent: "space-between",
   alignItems: "center",
-  boxShadow: "0px 0px 10px 4px rgb(0 0 0 / 5%)",
+  boxShadow: "0 0 10px 4px rgb(0 0 0 / 5%)",
 };
 
 export const navBarLogoStyle = {
