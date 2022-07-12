@@ -3,8 +3,10 @@ import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
+import { Posts, Login, SignUp, PrivateRoute, Profile } from "./features";
 import { loadPosts } from "./features/Posts/postSlice";
-import { Posts, Login, SignUp, PrivateRoute } from "./features";
+import { loadMyProfile } from "./features/Authentication/AuthenticationSlice";
+
 import { Navbar } from "./features/Navbar/Navbar";
 import { useAuthentication } from "./features/Authentication/AuthenticationSlice";
 
@@ -14,6 +16,7 @@ export const App = () => {
 
   useEffect(() => {
     dispatch(loadPosts());
+    dispatch(loadMyProfile(token));
   }, [token]);
   return (
     <div>
@@ -35,6 +38,14 @@ export const App = () => {
           element={
             <PrivateRoute>
               <Posts />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/:userName"
+          element={
+            <PrivateRoute>
+              <Profile />
             </PrivateRoute>
           }
         />
