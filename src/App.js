@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { loadPosts } from "./features/Posts/postSlice";
 import { Posts, Login, SignUp, PrivateRoute } from "./features";
@@ -12,10 +14,21 @@ export const App = () => {
 
   useEffect(() => {
     dispatch(loadPosts());
-  }, []);
+  }, [token]);
   return (
     <div>
       {user && <Navbar />}
+      <ToastContainer
+        position="bottom-right"
+        autoClose={false}
+        newestOnTop={false}
+        closeOnClick
+        theme="colored"
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+      />
+
       <Routes>
         <Route
           path="/"

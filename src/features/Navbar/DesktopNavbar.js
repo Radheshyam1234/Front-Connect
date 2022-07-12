@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { IoHomeOutline } from "react-icons/io5";
-import { VscBell } from "react-icons/vsc";
-import { CgAdd } from "react-icons/cg";
 import { BsToggleOff, BsToggleOn } from "react-icons/bs";
 import { MdOutlineExplore } from "react-icons/md";
 import {
@@ -15,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { smallAvatarStyle, navIconStyle } from "../Styles";
 import { useAuthentication } from "../Authentication/AuthenticationSlice";
+import { CreatePost } from "../Posts/CreatePost";
 
 export const DesktopNavbar = () => {
   const { user } = useAuthentication();
@@ -22,7 +21,7 @@ export const DesktopNavbar = () => {
   return (
     <HStack p="3" justify="end">
       <Box display={{ md: "block", base: "none" }}>
-        <Icon as={CgAdd} {...navIconStyle} />
+        <CreatePost />
         <Link to="/">
           <Icon as={IoHomeOutline} {...navIconStyle} />
         </Link>
