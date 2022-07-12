@@ -48,7 +48,7 @@ export const DesktopNavbar = () => {
         />
       )}
       <Box>
-        <Link to="/">
+        <Link to={`/${user.userName}`}>
           <Avatar src={user.profilephoto} {...smallAvatarStyle}>
             <AvatarBadge boxSize="1.2em" bg="green.300" />
           </Avatar>

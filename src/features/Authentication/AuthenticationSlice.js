@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { API_URL } from "../../Utils/Constants";
+import { updateProfilePhoto, updateProfileInfo } from "../Profile/ProfileSlice";
 
 export const signupUser = createAsyncThunk(
   "authentication/signuphandler",
@@ -43,6 +44,22 @@ export const loginUser = createAsyncThunk(
       const message = error.response.data.message;
       return rejectWithValue(message);
     }
+  }
+);
+
+export const loadMyProfile = createAsyncThunk(
+  "user/myprofile",
+  async (token) => {
+    const {
+      data: { response },
+    } = await axios({
+      method: "GET",
+      url: `${API_URL}/user/myprofile`,
+      headers: {
+        authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+      },
+    });
+    return response;
   }
 );
 
@@ -89,6 +106,15 @@ export const authenticationSlice = createSlice({
     },
     [loginUser.rejected]: (state, action) => {
       state.isLoading = false;
+    },
+    [loadMyProfile.fulfilled]: (state, action) => {
+      state.user = action.payload;
+    },
+    [updateProfilePhoto.fulfilled]: (state, action) => {
+      state.user.profilephoto = action.payload.profilephoto;
+    },
+    [updateProfileInfo.fulfilled]: (state, action) => {
+      state.user = action.payload;
     },
   },
 });
