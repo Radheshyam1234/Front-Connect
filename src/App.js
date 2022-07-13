@@ -9,6 +9,7 @@ import { loadMyProfile } from "./features/Authentication/AuthenticationSlice";
 
 import { Navbar } from "./features/Navbar/Navbar";
 import { useAuthentication } from "./features/Authentication/AuthenticationSlice";
+import { loadUsers } from "./features/Users/usersSlice";
 
 export const App = () => {
   const { token, user } = useAuthentication();
@@ -17,6 +18,7 @@ export const App = () => {
   useEffect(() => {
     dispatch(loadPosts());
     dispatch(loadMyProfile(token));
+    dispatch(loadUsers());
   }, [token]);
   return (
     <div>

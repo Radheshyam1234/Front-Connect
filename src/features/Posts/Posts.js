@@ -10,7 +10,7 @@ import {
 import { usePostSelector } from "./postSlice";
 import { PostCard } from "./PostCard";
 import { filterStyle, activeFilterStyle, navIconStyle } from "../Styles";
-
+import { SuggestionSection } from "../Users/SuggestionSection";
 const postFilter = ["My Feed", "Trending", "Oldest", "Following"];
 
 export const Posts = () => {
@@ -54,6 +54,7 @@ export const Posts = () => {
             </Box>
           )}
         </GridItem>
+        <SuggestionSection />
       </Grid>
     </>
   );
