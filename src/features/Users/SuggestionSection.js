@@ -10,7 +10,6 @@ import { Link } from "react-router-dom";
 export const SuggestionSection = () => {
   const { allUsers } = useUsers();
   const { user } = useAuthentication();
-  console.log(allUsers);
 
   return (
     <>
