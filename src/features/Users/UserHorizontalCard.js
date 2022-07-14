@@ -12,10 +12,24 @@ import {
 } from "@chakra-ui/react";
 import { smallAvatarStyle, userHorizontalCardStyle } from "../Styles";
 import { useAuthentication } from "../Authentication/AuthenticationSlice";
+import { followTheUser, unFollowTheUser } from "../Followers/FollowersSlice";
 
 export const UserHorizontalCard = ({ user: person }) => {
+  const [processing, setProcessing] = useState(false);
   const { user } = useAuthentication();
   const dispatch = useDispatch();
+
+  const handleFollowUser = () => {
+    setProcessing(true);
+    const promise = dispatch(followTheUser(person.userName));
+    promise.finally(() => setProcessing(false));
+  };
+
+  const handleUnFollowUser = () => {
+    setProcessing(true);
+    const promise = dispatch(unFollowTheUser(person.userName));
+    promise.finally(() => setProcessing(false));
+  };
 
   return (
     <>
@@ -36,9 +50,37 @@ export const UserHorizontalCard = ({ user: person }) => {
         </Box>
         <Spacer />
         <Box>
-          <Button variant="solidPrimary" size="sm">
-            Follow
-          </Button>
+          {user && user?._id === person?._id ? (
+            <Text color="primary.500" fontWeight="semibold">
+              You
+            </Text>
+          ) : (
+            <>
+              {user?.following?.includes(person?._id) ? (
+                <Button
+                  isDisabled={processing}
+                  variant="solidPrimary"
+                  size="sm"
+                  onClick={() => {
+                    handleUnFollowUser();
+                  }}
+                >
+                  Unfollow
+                </Button>
+              ) : (
+                <Button
+                  isDisabled={processing}
+                  variant="outlinePrimary"
+                  size="sm"
+                  onClick={() => {
+                    handleFollowUser();
+                  }}
+                >
+                  Follow
+                </Button>
+              )}
+            </>
+          )}
         </Box>
       </Flex>
     </>

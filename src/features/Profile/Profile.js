@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loadUserProfile, resetProfile, useProfile } from "./ProfileSlice";
+import {
+  loadUserProfile,
+  resetProfile,
+  useProfile,
+  followUserFromProfilePage,
+  unFollowUserFromProfilePage,
+} from "./ProfileSlice";
 import { usePostSelector } from "../Posts/postSlice";
 import {
   useAuthentication,
@@ -26,6 +32,8 @@ import {
 import { BsGrid3X3, BsFillBookmarkFill } from "react-icons/bs";
 import { PostCard } from "../Posts/PostCard";
 import { EditProfile } from "./EditProfile";
+import { FollowersContainer } from "../Followers/FollowersContainer";
+import { FollowingContainer } from "../Following/FollowingContainer";
 import {
   profileAvatarStyle,
   profileDetailsWrapperStyle,
@@ -79,11 +87,33 @@ export const Profile = () => {
                   ) : (
                     <>
                       {profileDetails?.followers.includes(user?._id) ? (
-                        <Button disabled={processing} variant="solidSecondary">
+                        <Button
+                          disabled={processing}
+                          variant="solidSecondary"
+                          onClick={() => {
+                            setProcessing(true);
+                            dispatch(
+                              unFollowUserFromProfilePage(
+                                profileDetails?.userName
+                              )
+                            ).finally(() => setProcessing(false));
+                          }}
+                        >
                           Unfollow
                         </Button>
                       ) : (
-                        <Button disabled={processing} variant="solidPrimary">
+                        <Button
+                          disabled={processing}
+                          variant="solidPrimary"
+                          onClick={() => {
+                            setProcessing(true);
+                            dispatch(
+                              followUserFromProfilePage(
+                                profileDetails?.userName
+                              )
+                            ).finally(() => setProcessing(false));
+                          }}
+                        >
                           Follow
                         </Button>
                       )}
@@ -110,7 +140,7 @@ export const Profile = () => {
                         ? user?.followers?.length
                         : profileDetails?.followers?.length}
                     </Text>
-                    Followers
+                    <FollowersContainer userName={profileDetails?.userName} />
                   </Text>
                   <Text>
                     <Text {...countStyle}>
@@ -118,7 +148,7 @@ export const Profile = () => {
                         ? user?.following?.length
                         : profileDetails?.following?.length}
                     </Text>
-                    Following
+                    <FollowingContainer userName={profileDetails?.userName} />
                   </Text>
                 </HStack>
                 <VStack alignItems="left" spacing="0.25rem">
