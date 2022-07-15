@@ -60,6 +60,38 @@ export const updateProfileInfo = createAsyncThunk(
   }
 );
 
+export const followUserFromProfilePage = createAsyncThunk(
+  "user/follow",
+  async (userName) => {
+    const {
+      data: { response },
+    } = await axios({
+      method: "POST",
+      url: `${API_URL}/user/${userName}/follow`,
+      headers: {
+        authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+      },
+    });
+    return response;
+  }
+);
+
+export const unFollowUserFromProfilePage = createAsyncThunk(
+  "user/unfollow",
+  async (userName) => {
+    const {
+      data: { response },
+    } = await axios({
+      method: "POST",
+      url: `${API_URL}/user/${userName}/unfollow`,
+      headers: {
+        authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+      },
+    });
+    return response;
+  }
+);
+
 const profileSlice = createSlice({
   name: "profile",
   initialState: {
@@ -73,6 +105,12 @@ const profileSlice = createSlice({
   extraReducers: {
     [loadUserProfile.fulfilled]: (state, action) => {
       state.profileDetails = action.payload;
+    },
+    [followUserFromProfilePage.fulfilled]: (state, action) => {
+      state.profileDetails.followers = action.payload.followers;
+    },
+    [unFollowUserFromProfilePage.fulfilled]: (state, action) => {
+      state.profileDetails.followers = action.payload.followers;
     },
   },
 });

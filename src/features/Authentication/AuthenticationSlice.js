@@ -2,6 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { API_URL } from "../../Utils/Constants";
+import {
+  followUserFromProfilePage,
+  unFollowUserFromProfilePage,
+} from "../Profile/ProfileSlice";
+import { followTheUser, unFollowTheUser } from "../Followers/FollowersSlice";
 import { updateProfilePhoto, updateProfileInfo } from "../Profile/ProfileSlice";
 
 export const signupUser = createAsyncThunk(
@@ -115,6 +120,29 @@ export const authenticationSlice = createSlice({
     },
     [updateProfileInfo.fulfilled]: (state, action) => {
       state.user = action.payload;
+    },
+    [followTheUser.fulfilled]: (state, action) => {
+      state.user.following.unshift(action.payload._id);
+    },
+    [unFollowTheUser.fulfilled]: (state, action) => {
+      const index = state.user.following.findIndex(
+        (following) => following.toString() === action.payload._id.toString()
+      );
+
+      if (index !== -1) {
+        state.user.following.splice(index, 1);
+      }
+    },
+    [followUserFromProfilePage.fulfilled]: (state, action) => {
+      state.user.following.unshift(action.payload._id);
+    },
+    [unFollowUserFromProfilePage.fulfilled]: (state, action) => {
+      const index = state.user.following.findIndex(
+        (following) => following.toString() === action.payload._id.toString()
+      );
+      if (index !== -1) {
+        state.user.following.splice(index, 1);
+      }
     },
   },
 });
