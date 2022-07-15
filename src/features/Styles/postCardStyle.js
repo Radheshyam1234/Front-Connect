@@ -1,6 +1,6 @@
 export const postCardWrapperStyle = {
   mt: "2rem",
-  borderRadius: "xl",
+  borderRadius: "lg",
   boxShadow: "0 1px 3px 0 rgb(0 0 0 / 2%), 0 0 0 1px rgb(27 31 35 / 15%)",
 };
 
