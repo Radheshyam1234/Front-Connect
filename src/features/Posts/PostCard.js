@@ -37,6 +37,7 @@ import { followTheUser, unFollowTheUser } from "../Followers/FollowersSlice";
 import { LikesContainer } from "./LikesContainer";
 import { deletePost, likeThePost, removeLikeFromPost } from "./postSlice";
 import { bookMarkPost, removeBookmarkPost } from "./postSlice";
+import { EditPost } from "./EditPost";
 
 import {
   postCardWrapperStyle,
@@ -104,6 +105,7 @@ export const PostCard = ({ post }) => {
               <MenuList>
                 {post?.postedBy?._id === user?._id && (
                   <>
+                    <EditPost post={post} />
                     <MenuItem onClick={onOpen}>Delete</MenuItem>
                     <AlertDialog
                       isOpen={isOpen}

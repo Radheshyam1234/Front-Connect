@@ -44,6 +44,46 @@ export const createPost = createAsyncThunk(
   }
 );
 
+export const editPost = createAsyncThunk(
+  "posts/edit",
+  async ({ postId, editedContent }, { rejectWithValue }) => {
+    try {
+      const {
+        data: { response },
+      } = await axios({
+        method: "POST",
+        url: `${API_URL}/posts/${postId}/editpost`,
+        headers: {
+          authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
+        data: { editedContent },
+      });
+      return response;
+    } catch (error) {
+      const message = error.response.data.message;
+      ToastHandler(ToastType.Error, message);
+    }
+  }
+);
+
+export const deletePost = createAsyncThunk("posts/delete", async (postId) => {
+  try {
+    const {
+      data: { response },
+    } = await axios({
+      method: "DELETE",
+      url: `${API_URL}/posts/${postId}`,
+      headers: {
+        authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+      },
+    });
+    return response;
+  } catch (error) {
+    const message = error.response.data.message;
+    ToastHandler(ToastType.Error, message);
+  }
+});
+
 export const likeThePost = createAsyncThunk(
   "posts/like",
   async ({ postId }, { rejectWithValue }) => {
@@ -118,24 +158,6 @@ export const getUsersWhoLikedThePost = createAsyncThunk(
   }
 );
 
-export const deletePost = createAsyncThunk("posts/delete", async (postId) => {
-  try {
-    const {
-      data: { response },
-    } = await axios({
-      method: "DELETE",
-      url: `${API_URL}/posts/${postId}`,
-      headers: {
-        authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
-      },
-    });
-    return response;
-  } catch (error) {
-    const message = error.response.data.message;
-    ToastHandler(ToastType.Error, message);
-  }
-});
-
 export const bookMarkPost = createAsyncThunk(
   "posts/addbookmark",
   async (postId) => {
@@ -195,6 +217,19 @@ export const postSlice = createSlice({
     [createPost.rejected]: (state, action) => {
       ToastHandler(ToastType.Error, action.payload);
       state.createPostStatus = "idle";
+    },
+    [editPost.fulfilled]: (state, action) => {
+      const index = state.posts.findIndex(
+        (post) => post?._id === action.payload._id
+      );
+
+      if (index !== -1) {
+        state.posts[index] = {
+          ...state.posts[index],
+          content: action.payload.content,
+        };
+        ToastHandler(ToastType.Success, "Post Saved Successfully");
+      }
     },
     [deletePost.fulfilled]: (state, action) => {
       const index = state.posts.findIndex(
