@@ -8,6 +8,7 @@ import {
 } from "../Profile/ProfileSlice";
 import { followTheUser, unFollowTheUser } from "../Followers/FollowersSlice";
 import { updateProfilePhoto, updateProfileInfo } from "../Profile/ProfileSlice";
+import { bookMarkPost, removeBookmarkPost } from "../Posts/postSlice";
 
 export const signupUser = createAsyncThunk(
   "authentication/signuphandler",
@@ -143,6 +144,12 @@ export const authenticationSlice = createSlice({
       if (index !== -1) {
         state.user.following.splice(index, 1);
       }
+    },
+    [bookMarkPost.fulfilled]: (state, action) => {
+      state.user.savedpost = action.payload.savedpost;
+    },
+    [removeBookmarkPost.fulfilled]: (state, action) => {
+      state.user.savedpost = action.payload.savedpost;
     },
   },
 });
