@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+
 import {
   Box,
   Img,
@@ -24,6 +25,7 @@ import {
   inputRightElementIconStyle,
   headingStyle,
 } from "../../Styles";
+import { Link } from "react-router-dom";
 export const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { token, user } = useAuthentication();
@@ -198,9 +200,11 @@ export const SignUp = () => {
         <DividerWithTextOverlay />
         <Box mt="8" textAlign="center">
           Already have an account?{" "}
-          <Text as="span" color="primary.600" fontWeight="bold">
-            Login
-          </Text>
+          <Link to="/signin">
+            <Text as="span" color="primary.600" fontWeight="bold">
+              Login
+            </Text>
+          </Link>
         </Box>
       </Box>
     </Box>

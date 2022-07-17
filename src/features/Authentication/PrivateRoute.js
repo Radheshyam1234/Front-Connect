@@ -10,6 +10,6 @@ export const PrivateRoute = ({ children }) => {
   return token ? (
     children
   ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
+    <Navigate to="/signin" state={{ from: location }} replace />
   );
 };
