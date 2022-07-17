@@ -190,6 +190,84 @@ export const removeBookmarkPost = createAsyncThunk(
   }
 );
 
+export const addComment = createAsyncThunk(
+  "posts/addnewcomment",
+  async ({ commentInput, postId }) => {
+    try {
+      const commentDetails = {
+        text: commentInput,
+        parentCommentId: "null",
+      };
+      const {
+        data: { response },
+      } = await axios({
+        method: "POST",
+        url: `${API_URL}/posts/${postId}/comment`,
+        data: {
+          commentDetails,
+        },
+        headers: {
+          authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
+      });
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const addReply = createAsyncThunk(
+  "posts/addReplyOnComment",
+  async ({ postId, replyMessage, parentCommentId }) => {
+    try {
+      const commentDetails = {
+        text: replyMessage,
+        parentCommentId,
+      };
+
+      const {
+        data: { response },
+      } = await axios({
+        method: "POST",
+        url: `${API_URL}/posts/${postId}/comment`,
+        data: {
+          commentDetails,
+        },
+        headers: {
+          authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
+      });
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const deleteComment = createAsyncThunk(
+  "posys/deleteComment",
+  async ({ postId, commentId }) => {
+    try {
+      const {
+        data: { response },
+      } = await axios({
+        method: "DELETE",
+        url: `${API_URL}/posts/${postId}/comment`,
+        data: {
+          commentId,
+        },
+        headers: {
+          authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
+      });
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 export const postSlice = createSlice({
   name: "posts",
   initialState: {
@@ -277,6 +355,43 @@ export const postSlice = createSlice({
     },
     [getUsersWhoLikedThePost.rejected]: (state, action) => {
       ToastHandler(ToastType.Error, action.payload);
+    },
+    [addComment.fulfilled]: (state, action) => {
+      const index = state.posts.findIndex(
+        (post) => post._id === action.payload._id
+      );
+      if (index !== -1) {
+        state.posts[index] = {
+          ...state.posts[index],
+          comments: action.payload.comments,
+        };
+      }
+    },
+
+    [addReply.fulfilled]: (state, action) => {
+      const index = state.posts.findIndex(
+        (post) => post._id === action.payload._id
+      );
+
+      if (index !== -1) {
+        state.posts[index] = {
+          ...state.posts[index],
+          comments: action.payload.comments,
+        };
+      }
+    },
+
+    [deleteComment.fulfilled]: (state, action) => {
+      const index = state.posts.findIndex(
+        (post) => post._id === action.payload._id
+      );
+
+      if (index !== -1) {
+        state.posts[index] = {
+          ...state.posts[index],
+          comments: action.payload.comments,
+        };
+      }
     },
   },
 });
