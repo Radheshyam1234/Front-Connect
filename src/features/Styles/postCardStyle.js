@@ -54,6 +54,8 @@ export const commentsCounterStyle = {
   fontSize: "12px",
   color: "secondary.800",
   ml: "2",
+  textDecoration: "underline",
+  cursor: "pointer",
 };
 
 export const commentInputStyle = {

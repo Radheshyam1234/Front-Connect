@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { ToastHandler, ToastType } from "../../Utils/ToastUtils";
 import { API_URL } from "../../Utils/Constants";
 import {
   followUserFromProfilePage,
@@ -72,7 +73,8 @@ export const loadMyProfile = createAsyncThunk(
 const initialState = {
   token: JSON.parse(localStorage.getItem("token")) || "",
   user: null,
-  isLoading: false,
+  isLoggingIn: false,
+  isSigningUp: false,
 };
 
 export const authenticationSlice = createSlice({
@@ -87,31 +89,33 @@ export const authenticationSlice = createSlice({
   },
   extraReducers: {
     [signupUser.pending]: (state) => {
-      state.isLoading = true;
+      state.isSigningUp = true;
     },
 
     [signupUser.fulfilled]: (state, action) => {
-      state.isLoading = false;
+      state.isSigningUp = false;
       state.user = action.payload.NewUser;
       state.token = action.payload.token;
       localStorage.setItem("token", JSON.stringify(action.payload.token));
     },
 
     [signupUser.rejected]: (state, action) => {
-      state.isLoading = false;
+      state.isSigningUp = false;
     },
 
     [loginUser.pending]: (state) => {
-      state.isLoading = true;
+      state.isLoggingIn = true;
     },
     [loginUser.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.user = action.payload.user;
       state.token = action.payload.token;
       localStorage.setItem("token", JSON.stringify(action.payload.token));
+      ToastHandler(ToastType.Success, "Logged in successfully");
     },
     [loginUser.rejected]: (state, action) => {
-      state.isLoading = false;
+      state.isLoggingIn = false;
+      ToastHandler(ToastType.Error, action.payload);
     },
     [loadMyProfile.fulfilled]: (state, action) => {
       state.user = action.payload;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuthentication } from "../AuthenticationSlice";
 import {
   Box,
@@ -29,7 +29,7 @@ import { checkLoginFormValidity } from "./utils/checkLoginFormValidity";
 export const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { token } = useAuthentication();
+  const { token, isLoggingIn } = useAuthentication();
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   let from = location.state?.from?.pathname || "/";
@@ -137,15 +137,22 @@ export const Login = () => {
           <Button variant="blockOutline" mt="8" onClick={guestLogin}>
             Guest User
           </Button>
-          <Button variant="blockPrimary" mt="4" onClick={loginHandler}>
-            Login
+          <Button
+            variant="blockPrimary"
+            mt="4"
+            disabled={isLoggingIn}
+            onClick={loginHandler}
+          >
+            {isLoggingIn ? "Logging.." : "Login"}
           </Button>
           <DividerWithTextOverlay />
           <Box mt="8" textAlign="center">
             Don't have an account?{" "}
-            <Text as="span" color="primary.600" fontWeight="bold">
-              Sign Up
-            </Text>
+            <Link to="/signup">
+              <Text as="span" color="primary.600" fontWeight="bold">
+                Sign Up
+              </Text>
+            </Link>
           </Box>
         </Box>
       </Box>

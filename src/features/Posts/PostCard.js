@@ -38,6 +38,7 @@ import { LikesContainer } from "./LikesContainer";
 import { deletePost, likeThePost, removeLikeFromPost } from "./postSlice";
 import { bookMarkPost, removeBookmarkPost } from "./postSlice";
 import { EditPost } from "./EditPost";
+import { CommentSection } from "./CommentSection";
 
 import {
   postCardWrapperStyle,
@@ -48,11 +49,13 @@ import {
   postImageStyle,
   cardActionsStyle,
   cardActionIcon,
+  commentsCounterStyle,
 } from "../Styles";
 
 export const PostCard = ({ post }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
+  const [openComments, setOpenComments] = useState(false);
   const dispatch = useDispatch();
   const { user } = useAuthentication();
   const [likeBtnDisabled, setLikeBtnDisabled] = useState(false);
@@ -82,6 +85,8 @@ export const PostCard = ({ post }) => {
       });
     }
   };
+
+  const totalComments = post?.comments?.length;
 
   return (
     <>
@@ -197,7 +202,15 @@ export const PostCard = ({ post }) => {
               />
             )}
           </Box>
-
+          <Box ml="4">
+            <Icon
+              as={FaRegCommentDots}
+              {...cardActionIcon}
+              onClick={() => {
+                setOpenComments(!openComments);
+              }}
+            />
+          </Box>
           <Spacer />
           <Box>
             {user?.savedpost?.includes(post?._id) ? (
@@ -222,6 +235,18 @@ export const PostCard = ({ post }) => {
           </Box>
         </Flex>
         <LikesContainer post={post} />
+        <Text
+          {...commentsCounterStyle}
+          onClick={() => {
+            setOpenComments(!openComments);
+          }}
+        >
+          {totalComments > 0 ? <>View all {totalComments} comments</> : ""}
+        </Text>
+
+        <Divider mt="1" />
+
+        {openComments && <CommentSection post={post} />}
       </Box>
     </>
   );
