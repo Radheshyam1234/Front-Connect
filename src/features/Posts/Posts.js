@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Grid,
-  GridItem,
-  Tag,
-  TagLabel,
-  TagLeftIcon,
-} from "@chakra-ui/react";
+import { useAuthentication } from "../Authentication/AuthenticationSlice";
+import { Box, Grid, GridItem, Tag, TagLabel } from "@chakra-ui/react";
 import { usePostSelector } from "./postSlice";
 import { PostCard } from "./PostCard";
-import { filterStyle, activeFilterStyle, navIconStyle } from "../Styles";
+import { filterStyle, activeFilterStyle } from "../Styles";
 import { SuggestionSection } from "../Users/SuggestionSection";
+import { getFilteredPosts } from "./utils/getFilteredPosts";
+
 const postFilter = ["My Feed", "Trending", "Oldest", "Following"];
 
 export const Posts = () => {
   const { posts } = usePostSelector();
+  const { user } = useAuthentication();
   const [filter, setFilter] = useState("My Feed");
 
   return (
@@ -48,9 +45,10 @@ export const Posts = () => {
                 );
               })}
 
-              {posts.slice(0, 6).map((post) => {
-                return <PostCard post={post} key={post._id} />;
-              })}
+              {user &&
+                getFilteredPosts(posts, filter, user)?.map((post) => {
+                  return <PostCard post={post} key={post._id} />;
+                })}
             </Box>
           )}
         </GridItem>

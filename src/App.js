@@ -3,7 +3,14 @@ import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
-import { Posts, Login, SignUp, PrivateRoute, Profile } from "./features";
+import {
+  Posts,
+  Explore,
+  Login,
+  SignUp,
+  PrivateRoute,
+  Profile,
+} from "./features";
 import { loadPosts } from "./features/Posts/postSlice";
 import { loadMyProfile } from "./features/Authentication/AuthenticationSlice";
 
@@ -40,6 +47,14 @@ export const App = () => {
           element={
             <PrivateRoute>
               <Posts />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/explore"
+          element={
+            <PrivateRoute>
+              <Explore />
             </PrivateRoute>
           }
         />

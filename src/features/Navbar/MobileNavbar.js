@@ -14,9 +14,12 @@ export const MobileNavbar = () => {
       <Link to="/">
         <Icon as={IoHomeOutline} {...navIconStyle} />
       </Link>
-      <Icon as={MdOutlineExplore} {...navIconStyle} />
       <CreatePost />
-      <Icon as={VscBell} {...navIconStyle} />
+      <Link to="/explore">
+        <Icon as={MdOutlineExplore} {...navIconStyle} />
+      </Link>
+
+      {/* <Icon as={VscBell} {...navIconStyle} /> */}
     </Flex>
   );
 };
