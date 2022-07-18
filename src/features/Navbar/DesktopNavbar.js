@@ -26,7 +26,7 @@ export const DesktopNavbar = () => {
           <Icon as={IoHomeOutline} {...navIconStyle} />
         </Link>
 
-        <Link to="/">
+        <Link to="/explore">
           <Icon as={MdOutlineExplore} {...navIconStyle} />
         </Link>
       </Box>

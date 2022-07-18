@@ -177,7 +177,9 @@ export const PostCard = ({ post }) => {
           </Linkify>
         </Text>
 
-        {post?.photo && <Image src={post?.photo} {...postImageStyle} />}
+        {post?.photo && (
+          <Image src={post?.photo} alt="Loading" {...postImageStyle} />
+        )}
 
         <Flex {...cardActionsStyle}>
           <Box>
