@@ -39,6 +39,7 @@ import {
   profileDetailsWrapperStyle,
   countStyle,
 } from "../Styles";
+import { Loader } from "../../Loader/Loader";
 
 export const Profile = () => {
   const [processing, setProcessing] = useState(false);
@@ -231,7 +232,7 @@ export const Profile = () => {
           </Tabs>
         </Box>
       ) : (
-        "Loading"
+        <Loader size="lg" />
       )}
     </Box>
   );

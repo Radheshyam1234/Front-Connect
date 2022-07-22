@@ -10,6 +10,16 @@ import { Link } from "react-router-dom";
 export const SuggestionSection = () => {
   const { allUsers } = useUsers();
   const { user } = useAuthentication();
+  const [unfollowedUsers, setUnfollowedUsers] = useState();
+
+  const getSixUnfollowedUsers = () => {
+    return allUsers
+      ?.filter(
+        (person) =>
+          !user?.following.includes(person._id) && person._id !== user?._id
+      )
+      .slice(0, 6);
+  };
 
   return (
     <>
@@ -40,8 +50,13 @@ export const SuggestionSection = () => {
         <Text color="secondary.700" fontWeight="500" m="1rem">
           Suggestions for you
         </Text>
-        {allUsers.slice(6).map((user) => {
-          return <UserHorizontalCard key={user._id} user={user} />;
+        {getSixUnfollowedUsers()?.map((unfollowedUser) => {
+          return (
+            <UserHorizontalCard
+              key={unfollowedUser._id}
+              user={unfollowedUser}
+            />
+          );
         })}
       </Box>
     </>

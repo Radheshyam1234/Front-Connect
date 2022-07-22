@@ -13,6 +13,7 @@ import {
 import { UserHorizontalCard } from "../Users/UserHorizontalCard";
 import { loadFollowing, resetFollowing } from "./FollowingSlice";
 import { useFollowing } from "./FollowingSlice";
+import { Loader } from "../../Loader/Loader";
 
 export const FollowingContainer = ({ userName }) => {
   const [loading, setLoading] = useState(false);
@@ -50,7 +51,7 @@ export const FollowingContainer = ({ userName }) => {
           <ModalCloseButton />
           <ModalBody>
             {loading ? (
-              "Loading"
+              <Loader size="sm" />
             ) : (
               <>
                 {followingDetails && (
