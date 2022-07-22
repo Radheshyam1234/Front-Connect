@@ -31,6 +31,7 @@ import {
 } from "../Styles";
 import { createPost } from "./postSlice";
 import { usePostSelector } from "./postSlice";
+import { Loader } from "../../Loader/Loader";
 
 export const CreatePost = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -182,7 +183,7 @@ export const CreatePost = () => {
               }}
             >
               {createPostStatus === "pending" || uploadingImage ? (
-               "Uploading"
+                <Loader size="sm" />
               ) : (
                 "Post"
               )}

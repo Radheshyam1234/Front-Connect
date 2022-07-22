@@ -4,6 +4,7 @@ import axios from "axios";
 import { PostCard } from "./PostCard";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { API_URL } from "../../Utils/Constants";
+import { Loader } from "../../Loader/Loader";
 
 export const Explore = () => {
   const [posts, setPosts] = useState([]);
@@ -72,7 +73,7 @@ export const Explore = () => {
         })}
       {infiniteScrollStatus.loading ? (
         <Box mt="4">
-          <Text>Getiing new posts</Text>
+          <Loader size="lg" />
         </Box>
       ) : (
         ""

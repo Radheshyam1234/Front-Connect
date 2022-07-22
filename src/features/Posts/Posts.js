@@ -6,6 +6,7 @@ import { PostCard } from "./PostCard";
 import { filterStyle, activeFilterStyle } from "../Styles";
 import { SuggestionSection } from "../Users/SuggestionSection";
 import { getFilteredPosts } from "./utils/getFilteredPosts";
+import { Loader } from "../../Loader/Loader";
 
 const postFilter = ["My Feed", "Trending", "Oldest", "Following"];
 
@@ -26,7 +27,7 @@ export const Posts = () => {
       >
         <GridItem overflowY={{ md: "auto" }} maxH="95vh">
           {posts?.length == 0 ? (
-            "Loading"
+            <Loader size="lg" />
           ) : (
             <Box maxW="40rem" margin="auto">
               {postFilter.map((filterValue) => {
