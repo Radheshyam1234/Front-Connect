@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { UserHorizontalCard } from "../Users/UserHorizontalCard";
 import { loadFollowers, resetFollowers } from "./FollowersSlice";
+import { Loader } from "../../Loader/Loader";
 
 export const FollowersContainer = ({ userName }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -50,7 +51,7 @@ export const FollowersContainer = ({ userName }) => {
           <ModalCloseButton />
           <ModalBody>
             {loading ? (
-              "Loading"
+              <Loader size="sm" />
             ) : (
               <>
                 {followersDetail && (
