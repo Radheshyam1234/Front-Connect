@@ -13,6 +13,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { BiSearch } from "react-icons/bi";
+import { SearchUsers } from "../Users/SearchUsers";
 import { DesktopNavbar } from "./DesktopNavbar";
 import { MobileNavbar } from "./MobileNavbar";
 import {
@@ -37,20 +38,7 @@ export const Navbar = () => {
           </Link>
         </GridItem>
         <GridItem w={{ base: "100%", md: "75%" }}>
-          {/* <SearchUsers /> */}
-          <FormControl id="password" {...inputWrapperStyle} mt={2} width="auto">
-            <Box>
-              <InputGroup>
-                <InputLeftElement children={<Icon as={BiSearch} />} />
-
-                <Input
-                  autoComplete="off"
-                  {...inputStyle}
-                  placeholder="Search user"
-                />
-              </InputGroup>
-            </Box>
-          </FormControl>
+          <SearchUsers />
         </GridItem>
         <GridItem w="100%">
           <DesktopNavbar />
