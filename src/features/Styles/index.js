@@ -6,3 +6,4 @@ export * from "./navigationStyle";
 export * from "./uploadImageInputStyle";
 export * from "./profileStyles";
 export * from "./userStyle";
+export * from "./searchedResults";

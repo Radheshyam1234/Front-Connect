@@ -38,7 +38,9 @@ export const Posts = () => {
                       : filterStyle)}
                     key={filterValue}
                     onClick={() => {
-                      setFilter(filterValue);
+                      filterValue === filter
+                        ? setFilter("My Feed")
+                        : setFilter(filterValue);
                     }}
                   >
                     <TagLabel>{filterValue}</TagLabel>

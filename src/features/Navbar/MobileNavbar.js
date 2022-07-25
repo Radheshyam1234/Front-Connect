@@ -18,8 +18,6 @@ export const MobileNavbar = () => {
       <Link to="/explore">
         <Icon as={MdOutlineExplore} {...navIconStyle} />
       </Link>
-
-      {/* <Icon as={VscBell} {...navIconStyle} /> */}
     </Flex>
   );
 };
