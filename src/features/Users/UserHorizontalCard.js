@@ -1,15 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  Box,
-  Text,
-  Button,
-  Avatar,
-  AvatarBadge,
-  Flex,
-  Spacer,
-} from "@chakra-ui/react";
+import { Box, Text, Button, Avatar, Flex, Spacer } from "@chakra-ui/react";
 import { smallAvatarStyle, userHorizontalCardStyle } from "../Styles";
 import { useAuthentication } from "../Authentication/AuthenticationSlice";
 import { followTheUser, unFollowTheUser } from "../Followers/FollowersSlice";

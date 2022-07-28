@@ -5,6 +5,8 @@ import profileReducer from "../features/Profile/ProfileSlice";
 import followerReducer from "../features/Followers/FollowersSlice";
 import followingReducer from "../features/Following/FollowingSlice";
 import usersReducer from "../features/Users/usersSlice";
+import OnlinOfflineReducer from "../features/OnlineOffline/OnlinOfflineSlice";
+
 export const store = configureStore({
   reducer: {
     authentication: authenticationReducer,
@@ -13,5 +15,6 @@ export const store = configureStore({
     followers: followerReducer,
     following: followingReducer,
     users: usersReducer,
+    activeStatus: OnlinOfflineReducer,
   },
 });

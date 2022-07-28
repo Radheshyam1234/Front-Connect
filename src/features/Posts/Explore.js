@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Box, Icon, Text } from "@chakra-ui/react";
 import axios from "axios";
 import { PostCard } from "./PostCard";
