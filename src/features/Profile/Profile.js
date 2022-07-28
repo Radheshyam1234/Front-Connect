@@ -27,7 +27,6 @@ import {
   Tab,
   TabPanel,
   Icon,
-  Spinner,
 } from "@chakra-ui/react";
 import { BsGrid3X3, BsFillBookmarkFill } from "react-icons/bs";
 import { PostCard } from "../Posts/PostCard";

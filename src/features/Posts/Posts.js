@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAuthentication } from "../Authentication/AuthenticationSlice";
 import { Box, Grid, GridItem, Tag, TagLabel } from "@chakra-ui/react";
 import { usePostSelector } from "./postSlice";
