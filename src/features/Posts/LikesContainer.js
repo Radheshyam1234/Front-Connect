@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   getUsersWhoLikedThePost,
   resetUsersWhoLikedThePost,
@@ -12,10 +12,8 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Button,
 } from "@chakra-ui/react";
 import { UserHorizontalCard } from "../Users/UserHorizontalCard";
 import { likesCounterStyle } from "../Styles";
