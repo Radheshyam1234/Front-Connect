@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 
 import {
   Box,
-  Img,
   FormControl,
   FormErrorMessage,
   InputRightElement,
@@ -11,7 +10,6 @@ import {
   Button,
   Input,
   Heading,
-  SimpleGrid,
   Divider,
   Text,
 } from "@chakra-ui/react";
@@ -28,7 +26,6 @@ import {
 import { Link } from "react-router-dom";
 export const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { token, user } = useAuthentication();
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
