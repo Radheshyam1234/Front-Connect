@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Linkify from "react-linkify";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
@@ -24,8 +24,6 @@ import {
   AvatarBadge,
   AlertDialogContent,
   AlertDialogOverlay,
-  useMediaQuery,
-  Center,
 } from "@chakra-ui/react";
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 
@@ -39,6 +37,8 @@ import { deletePost, likeThePost, removeLikeFromPost } from "./postSlice";
 import { bookMarkPost, removeBookmarkPost } from "./postSlice";
 import { EditPost } from "./EditPost";
 import { CommentSection } from "./CommentSection";
+import { useOnlineOrOfflineSelector } from "../OnlineOffline/OnlinOfflineSlice";
+import { isUserOnline } from "../../Utils/CheckUserStatus";
 
 import {
   postCardWrapperStyle,
@@ -58,6 +58,7 @@ export const PostCard = ({ post }) => {
   const [openComments, setOpenComments] = useState(false);
   const dispatch = useDispatch();
   const { user } = useAuthentication();
+  const { activeUsers } = useOnlineOrOfflineSelector();
   const [likeBtnDisabled, setLikeBtnDisabled] = useState(false);
   const [bookmarkDisabled, setBookmarkDisabled] = useState(false);
 
@@ -92,7 +93,11 @@ export const PostCard = ({ post }) => {
     <>
       <Box {...postCardWrapperStyle} maxW={{ base: "20rem", sm: "35rem" }}>
         <Box {...postCardUserInfoStyle}>
-          <Avatar src={post?.postedBy?.profilephoto} {...smallAvatarStyle} />
+          <Avatar src={post?.postedBy?.profilephoto} {...smallAvatarStyle}>
+            {activeUsers && isUserOnline(activeUsers, post?.postedBy?._id) && (
+              <AvatarBadge boxSize="1.2em" bg="green.300" />
+            )}
+          </Avatar>
 
           <Box>
             <Link to={`/${post?.postedBy?.userName}`}>
