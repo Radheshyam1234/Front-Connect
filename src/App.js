@@ -10,6 +10,7 @@ import {
   SignUp,
   PrivateRoute,
   Profile,
+  SinglePost,
 } from "./features";
 import { loadPosts } from "./features/Posts/postSlice";
 import { loadMyProfile } from "./features/Authentication/AuthenticationSlice";
@@ -63,6 +64,14 @@ export const App = () => {
           element={
             <PrivateRoute>
               <Profile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/:userName/:postId"
+          element={
+            <PrivateRoute>
+              <SinglePost />
             </PrivateRoute>
           }
         />
