@@ -23,6 +23,7 @@ import { SingleComment } from "./SingleComment";
 import { useAuthentication } from "../Authentication/AuthenticationSlice";
 import { addComment } from "./postSlice";
 import { API_URL } from "../../Utils/Constants";
+import { Loader } from "../../Loader/Loader";
 
 const getRootComments = (comments) => {
   return comments.filter((comment) => comment.parentCommentId == "null");
@@ -103,18 +104,20 @@ export const CommentSection = ({ post }) => {
       </FormControl>
       <Divider />
       <Box maxH="20rem" overflow="auto">
-        {comments?.length
-          ? getRootComments(comments)?.map((rootComment) => (
-              <SingleComment
-                comment={rootComment}
-                postId={post._id}
-                comments={comments}
-                key={rootComment._id}
-              />
-            ))
-          : loading
-          ? "Loading"
-          : "No comments."}
+        {comments?.length ? (
+          getRootComments(comments)?.map((rootComment) => (
+            <SingleComment
+              comment={rootComment}
+              postId={post._id}
+              comments={comments}
+              key={rootComment._id}
+            />
+          ))
+        ) : loading ? (
+          <Loader size="sm" />
+        ) : (
+          "No comments."
+        )}
       </Box>
     </>
   );
