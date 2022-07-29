@@ -107,7 +107,7 @@ export const authenticationSlice = createSlice({
       state.isLoggingIn = true;
     },
     [loginUser.fulfilled]: (state, action) => {
-      state.isLoading = false;
+      state.isLoggingIn = false;
       state.user = action.payload.user;
       state.token = action.payload.token;
       localStorage.setItem("token", JSON.stringify(action.payload.token));
