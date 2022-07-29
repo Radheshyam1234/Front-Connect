@@ -67,9 +67,11 @@ export const Login = () => {
   return (
     <SimpleGrid columns={[1, 1, 2]}>
       <Img
-        p="4"
+        // p={4}
+        maxH="40rem"
+        p={4}
         display={{ base: "none", md: "block" }}
-        src=" https://res.cloudinary.com/radheshyam11/image/upload/v1657204778/android-chrome-512x512_cq1pqw.png"
+        src="https://res.cloudinary.com/radheshyam11/image/upload/v1659121705/localhost_3000_signin_Nokia_N9__ipadmini_gold_portrait_sru59o.png"
       />
 
       <Box>
