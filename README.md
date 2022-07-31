@@ -2,7 +2,7 @@
   <img src="https://res.cloudinary.com/radheshyam11/image/upload/v1659121705/localhost_3000_signin_Nokia_N9__ipadmini_gold_portrait_sru59o.png" height="430" width="340" alt="logo"/>
   
 # Front-Connect
-  A Social Media Application 
+  A Social Media Application (https://front-connect.netlify.app/)
 </div>
 
 ## **Features -**
@@ -28,6 +28,8 @@
  - share post
  - Dark and Light Mode 
 
+### Upcoming Feature
+- Real Time Notifications
 
 
 ## **Built with -**
