@@ -33,8 +33,12 @@
 
 
 ## **Built with -**
-
+ Frontend :
 - React JS
 - Redux Toolkit 
 - React Router v6
 - Chakra UI
+
+Backend : (https://github.com/Radheshyam1234/Front-Connect-Backend)
+- Express Js
+- MongoDb
