@@ -20,7 +20,6 @@ export const Explore = () => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setCurrentPage((prev) => prev + 1);
-          intersectionObserver.current.unobserve(entry.target);
         }
       },
       {
@@ -29,40 +28,37 @@ export const Explore = () => {
     )
   );
 
-  useEffect(() => {
-    if (posts.length > 0)
-      intersectionObserver.current.observe(targetRef.current);
-  }, [posts]);
-
-  useEffect(() => {
-    (async () => {
-      setInfinteScrollStatus((prev) => ({ ...prev, loading: true }));
-      try {
-        const {
-          data: { response },
-        } = await axios({
-          method: "GET",
-          url: `${API_URL}/posts/page/${currentPage}`,
-          headers: {
-            authorization:
-              "Bearer " + JSON.parse(localStorage.getItem("token")),
-          },
+  const getNewPost = async (pageNumber) => {
+    setInfinteScrollStatus((prev) => ({ ...prev, loading: true }));
+    try {
+      const {
+        data: { response },
+      } = await axios({
+        method: "GET",
+        url: `${API_URL}/posts/page/${currentPage}`,
+        headers: {
+          authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
+      });
+      if (response.length > 0) {
+        setPosts((prev) => {
+          return [...prev, ...response];
         });
-        if (response.length > 0) {
-          setPosts((prev) => {
-            return [...prev, ...response];
-          });
-        } else {
-          setInfinteScrollStatus({ loading: false, completed: true });
-          intersectionObserver.current.unobserve(targetRef.current);
-          return;
-        }
-
-        setInfinteScrollStatus((prev) => ({ ...prev, loading: false }));
-      } catch (error) {
-        console.log(error);
+        intersectionObserver.current.observe(targetRef.current);
+      } else {
+        setInfinteScrollStatus({ loading: false, completed: true });
+        intersectionObserver.current.unobserve(targetRef.current);
+        return;
       }
-    })();
+
+      setInfinteScrollStatus((prev) => ({ ...prev, loading: false }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getNewPost(currentPage);
   }, [currentPage]);
 
   return (
@@ -86,7 +82,7 @@ export const Explore = () => {
       ) : (
         ""
       )}
-      {posts.length > 0 && <Box h="50px" ref={targetRef}></Box>}
+      {<Box h="50px" ref={targetRef}></Box>}
     </Box>
   );
 };
