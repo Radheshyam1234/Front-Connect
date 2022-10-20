@@ -2,6 +2,19 @@
 @import "https://fonts.gstatic.com";
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Roboto:wght@300;400&display=swap");
 
+.skeleton {
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: rgb(214, 220, 223);
+  }
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
+}
+
 ::-webkit-scrollbar {
   width: 5px;
 }
