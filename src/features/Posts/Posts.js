@@ -7,6 +7,7 @@ import { filterStyle, activeFilterStyle } from "../Styles";
 import { SuggestionSection } from "../Users/SuggestionSection";
 import { getFilteredPosts } from "./utils/getFilteredPosts";
 import { Loader } from "../../Loader/Loader";
+import { SkeltonLoader } from "../../Loader/SkeltonLoader";
 
 const postFilter = ["My Feed", "Trending", "Oldest", "Following"];
 
@@ -27,7 +28,11 @@ export const Posts = () => {
       >
         <GridItem overflowY={{ md: "auto" }} maxH="95vh">
           {posts?.length == 0 ? (
-            <Loader size="lg" />
+            // <Loader size="lg" />
+            <Box maxW="40rem" margin="auto">
+              <SkeltonLoader />
+              <SkeltonLoader />
+            </Box>
           ) : (
             <Box maxW="40rem" margin="auto">
               {postFilter.map((filterValue) => {
