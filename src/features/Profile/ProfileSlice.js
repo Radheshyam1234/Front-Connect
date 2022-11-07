@@ -96,6 +96,7 @@ const profileSlice = createSlice({
   name: "profile",
   initialState: {
     profileDetails: null,
+    profileFound: true,
   },
   reducers: {
     resetProfile: (state, action) => {
@@ -105,6 +106,9 @@ const profileSlice = createSlice({
   extraReducers: {
     [loadUserProfile.fulfilled]: (state, action) => {
       state.profileDetails = action.payload;
+    },
+    [loadUserProfile.rejected]: (state, action) => {
+      state.profileFound = false;
     },
     [followUserFromProfilePage.fulfilled]: (state, action) => {
       state.profileDetails.followers = action.payload.followers;

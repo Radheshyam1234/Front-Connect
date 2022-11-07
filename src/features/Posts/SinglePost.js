@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, Navigate } from "react-router-dom";
 import { PostCard } from "./PostCard";
 import { Box } from "@chakra-ui/react";
 import { Loader } from "../../Loader/Loader";
@@ -8,6 +8,7 @@ import { ToastHandler, ToastType } from "../../Utils/ToastUtils";
 import { API_URL } from "../../Utils/Constants";
 
 export const SinglePost = () => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const { postId } = useParams();
   const [post, setPost] = useState();
@@ -28,7 +29,7 @@ export const SinglePost = () => {
         });
         setPost(response);
       } catch (error) {
-        console.log(error);
+        navigate("/notfound");
         ToastHandler(ToastType.Error, "Couldnot load the post");
       } finally {
         setIsLoading(false);
