@@ -21,6 +21,7 @@ import { Navbar } from "./features/Navbar/Navbar";
 import { useAuthentication } from "./features/Authentication/AuthenticationSlice";
 import { loadUsers } from "./features/Users/usersSlice";
 import { setActiveUsers } from "./features/OnlineOffline/OnlinOfflineSlice";
+import { NotFound } from "./Pages/Not-Found";
 
 export const App = () => {
   const { token, user } = useAuthentication();
@@ -92,6 +93,8 @@ export const App = () => {
         />
         <Route path="/signin" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/notfound" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
   loadUserProfile,
@@ -41,9 +41,10 @@ import {
 import { Loader } from "../../Loader/Loader";
 
 export const Profile = () => {
+  const navigate = useNavigate();
   const [processing, setProcessing] = useState(false);
   const { userName } = useParams();
-  const { profileDetails } = useProfile();
+  const { profileDetails, profileFound } = useProfile();
   const { posts } = usePostSelector();
   const { user } = useAuthentication();
   const [isProfileOfUserloggedin, setIsProfileOfUserloggedin] = useState(false);
@@ -62,6 +63,12 @@ export const Profile = () => {
       setIsProfileOfUserloggedin(true);
     }
   }, [profileDetails, user]);
+
+  useEffect(() => {
+    if (!profileFound) {
+      navigate("/notfound");
+    }
+  }, [profileFound]);
 
   return (
     <Box h="100vh">
