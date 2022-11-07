@@ -163,7 +163,7 @@ export const EditProfile = () => {
                   <Input
                     {...inputStyle}
                     type="text"
-                    placeholder="Portfolio Url"
+                    placeholder="Portfolio Url with https://"
                     value={updatedProfileData?.link}
                     onChange={(e) => {
                       setUpdatedProfileData({

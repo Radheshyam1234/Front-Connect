@@ -166,11 +166,13 @@ export const Profile = () => {
                   </Text>
                   <Text>
                     <a
+                      style={{ color: "blue" }}
                       href={
                         isProfileOfUserloggedin
                           ? user?.link
                           : profileDetails?.link
                       }
+                      target="_blank"
                     >
                       {isProfileOfUserloggedin
                         ? user?.link
